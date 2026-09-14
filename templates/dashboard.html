@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card dashboard">
+
+        <div class="icon">
+            🔒
+        </div>
+
+        <h1>Welcome, {{ username }}!</h1>
+
+        <p class="subtitle">
+            You are successfully logged in.
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <div class="security-box">
+
+            <h3>🛡️ Secure Session</h3>
+
+            <p>
+                Your authenticated session is active.
+            </p>
+
+            <p>
+                Your password is securely stored using
+                bcrypt hashing.
+            </p>
+
+            <p>
+                Two-factor authentication provides an
+                additional layer of account protection.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('setup_2fa') }}"
+            class="logout-button"
+            style="background: #2563eb; margin-bottom: 12px;"
+        >
+            🔐 Setup / Manage 2FA
+        </a>
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-button"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
